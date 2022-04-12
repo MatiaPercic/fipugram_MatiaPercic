@@ -1,11 +1,54 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/login">Prijava</router-link> |
-    <router-link to="/signup">Registracija</router-link>
-  </nav>
-  <router-view/>
+ <div id="app">
+  <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light" >
+
+    <a class="navbar-brand" href="#">
+      <img src="@/assets/tfpu.png" 
+      alt="" 
+      width="50" 
+      class="d-inline-block align-text-centre">
+      Fipugram
+    </a>
+
+<button 
+    class="navbar-toggler" 
+    type="button" 
+    data-toggle="collapse" 
+    data-target="#navbarToggler" 
+    aria-controls="navbarToggler" 
+    aria-expanded="false" 
+    aria-label="Toggle navigation"
+    >
+
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+<div class="collapse navbar-collapse" id="navbarToggler">
+  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <router-link to="/" class="nav-link">Home</router-link>
+        </li>
+         <li class="nav-item">
+          <router-link to="/login" class="nav-link">Prijava</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/signup" class="nav-link">Registracija</router-link>
+        </li>
+     </ul>
+     <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+     </form>
+  </div>
+ </nav>
+
+
+ 
+   <router-view/>
+ </div>
 </template>
+
+
+
 
 <style lang="scss">
 #app {
