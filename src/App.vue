@@ -9,16 +9,23 @@
           width="50" 
           height="50">
           Fipugram
-          >
         </a>
 
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Prijava</router-link> |
       <router-link to="/signup">Registracija</router-link>
 
+
+      <form class="form-inline my-2 my-lg-0">
+      <input class="form-control me-2" type="search" placeholder="Pretraživanje" aria-label="Search">
+      </form>
     </nav>
 
-     <div class="container">
+     
+
+    
+    
+    <div class="container">
         <router-view/>
      </div>
  </div>
