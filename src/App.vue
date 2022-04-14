@@ -1,10 +1,10 @@
 <template>
  
  <div id="app">
-   	  <nav id="nav" class="navbar navbar-light bg-light">
+   	  <nav id="nav" class="navbar">
       	        
         <a class="navbar-brand" href="#">
-        <img src="@/assets/tfpu.png" 
+        <img src="@/assets/tfpu_hr.png" 
           alt="" 
           width="50" 
           height="50">
@@ -47,7 +47,7 @@
 
 nav {
   padding: 30px;
-
+  background-color: rgb(238, 202, 247) !important;;
   a {
     font-weight: bold;
     color: #2c3e50;
