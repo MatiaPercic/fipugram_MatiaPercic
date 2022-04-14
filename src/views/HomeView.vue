@@ -3,35 +3,41 @@
   <div class="row">
   <div class="col-2"></div>
   <div class="col-7">
-
-      <div class="card text-center">
-      <div class="card-header">
-         Featured
-      </div>
-      <div class="card-body p-0">
-        <img class="card-img-top" src="https://picsum.photos/800" >
-      </div>
-         <div class="card-footer text-muted">
-         2 days ago
-    </div>
-  </div>
+    
+    <instagram-card v-for="card in cards" :key="card"/>
 
   </div>
   <div class="col-3">
-  ... ovdje ide desni stupac!
+    Sidebar  
   </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import InstagramCard from '@/components/InstagramCard.vue'
 
+let cards= []
+//... API/firebase/neki drugi server-> sve kartice --> cards
+
+cards =[
+  "https://picsum.photos/id/7/400/400",
+  "https://picsum.photos/id/4/400/400",
+  "https://picsum.photos/id/3/400/400",
+  "https://picsum.photos/id/13/400/400",
+]
 
 export default {
   name: 'HomeView',
+  data: function (){
+      return{
+        //ključ: vrijednost
+
+        cards: cards
+      }
+  },
   components: {
-    HelloWorld
+    InstagramCard
   }
 }
 </script>
