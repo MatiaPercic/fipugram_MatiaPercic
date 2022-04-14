@@ -4,7 +4,7 @@
   <div class="col-2"></div>
   <div class="col-7">
     
-    <instagram-card v-for="card in cards" :key="card"/>
+    <instagram-card v-for="card in cards" :key="card" :info="card"/>
 
   </div>
   <div class="col-3">
@@ -21,10 +21,10 @@ let cards= []
 //... API/firebase/neki drugi server-> sve kartice --> cards
 
 cards =[
-  "https://picsum.photos/id/7/400/400",
-  "https://picsum.photos/id/4/400/400",
-  "https://picsum.photos/id/3/400/400",
-  "https://picsum.photos/id/13/400/400",
+  "https://picsum.photos/id/29/400/400",
+  "https://picsum.photos/id/42/400/400",
+  "https://picsum.photos/id/55/400/400",
+  "https://picsum.photos/id/420/400/400",
 ]
 
 export default {
