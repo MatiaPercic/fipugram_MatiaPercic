@@ -8,7 +8,14 @@
 
   </div>
   <div class="col-3">
-    Sidebar  
+       
+      
+    <div class="card-body p-0">
+
+    <p v-for="card in cards" :key="card"> 
+        Ovo je link... {{card}}
+    </p>
+    </div>
   </div>
   </div>
 </template>
