@@ -9,12 +9,10 @@
   </div>
   <div class="col-3">
        
+    Sidebar
       
     <div class="card-body p-0">
 
-    <p v-for="card in cards" :key="card"> 
-        Ovo je link... {{card}}
-    </p>
     </div>
   </div>
   </div>
@@ -23,15 +21,17 @@
 <script>
 // @ is an alias to /src
 import InstagramCard from '@/components/InstagramCard.vue'
+import store from '@/store'
+
 
 let cards= []
 //... API/firebase/neki drugi server-> sve kartice --> cards
 
 cards =[
-  "https://picsum.photos/id/29/400/400",
-  "https://picsum.photos/id/42/400/400",
-  "https://picsum.photos/id/55/400/400",
-  "https://picsum.photos/id/420/400/400",
+  {'url': "https://picsum.photos/id/29/400/400", description: 'mountain', time: 'few  seconds ago...'},
+  {'url': "https://picsum.photos/id/42/400/400", description: 'coffee', time: 'few  minutes ago...'},
+  {'url': "https://picsum.photos/id/55/400/400", description: 'plant', time: 'hour ago...'},
+  {'url': "https://picsum.photos/id/420/400/400", description: 'city', time: 'few  hours ago...'}
 ]
 
 export default {
@@ -40,8 +40,13 @@ export default {
       return{
         //ključ: vrijednost
 
-        cards: cards
+        cards,
+        store
       }
+  },
+
+  computed: {
+    
   },
   components: {
     InstagramCard
