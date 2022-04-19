@@ -26,7 +26,7 @@
       </form>
     </nav>
 
-     {{store.searchTerm}}
+     
     
     <div class="container">
         <router-view/>

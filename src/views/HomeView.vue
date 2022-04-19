@@ -4,7 +4,7 @@
   <div class="col-2"></div>
   <div class="col-7">
     
-    <instagram-card v-for="card in cards" :key="card" :info="card"/>
+    <instagram-card v-for="card in filteredCards" :key="card.url" :info="card"/>
 
   </div>
   <div class="col-3">
@@ -46,7 +46,18 @@ export default {
   },
 
   computed: {
-    
+      filteredCards() {
+        //kako se filtrira
+        let termin=this.store.searchTerm;
+        let newCards= []
+
+        for (let card of this.cards){
+          if (card.description.indexOf(termin) >=0) {
+              newCards.push(card)
+          }
+        }
+        return newCards;
+      }
   },
   components: {
     InstagramCard
