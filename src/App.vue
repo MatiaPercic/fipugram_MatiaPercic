@@ -17,13 +17,16 @@
 
 
       <form class="form-inline my-2 my-lg-0">
-      <input class="form-control me-2" type="search" placeholder="Pretraživanje" aria-label="Search">
+      <input 
+          v-model="store.searchTerm" 
+          class="form-control me-2" 
+          type="search" 
+          placeholder="Pretraživanje" 
+          aria-label="Search" />
       </form>
     </nav>
 
-     
-
-    
+     {{store.searchTerm}}
     
     <div class="container">
         <router-view/>
@@ -34,6 +37,20 @@
 </template>
 
 
+<script>
+
+import store from "@/store"
+
+export default ({
+    name: 'app',
+    data() {
+      return {
+        store: store
+      }
+    } 
+
+})
+</script>
 
 
 <style lang="scss">
