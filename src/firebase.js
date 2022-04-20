@@ -1,8 +1,8 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
- var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyAsgo1V7xUW25hpPPEvKeSY5XV5ZCQbOU8",
     authDomain: "fipugram-b2a1c.firebaseapp.com",
     projectId: "fipugram-b2a1c",
@@ -11,9 +11,9 @@ import 'firebase/firestore';
     appId: "1:473484789020:web:1e22e88243c47cd022a6d9"
   };
   
-  // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore();
+const storage = getStorage(app);
 
-  export {
-      firebase
-  }
+export { app, db, storage };

@@ -10,7 +10,7 @@
  <label for="exampleInputEmail1">Email address</label>
     <input 
     type="email" 
-    v-model='username'
+    v-model="username"
     class="form-control"
     id="exampleInputEmail1" 
     aria-describedby="emailHelp" 
@@ -23,7 +23,7 @@ never share your email with anyone else.</small>
  <label for="exampleInputPassword1">Password</label>
  <input 
     type="password" 
-    v-model='passward' 
+    v-model="password" 
     class="form-control"
     id="exampleInputPassword1" 
     placeholder="Password" />
@@ -32,7 +32,7 @@ never share your email with anyone else.</small>
  <label for="exampleInputPassword1">Repeat password</label>
  <input 
     type="password" 
-    v-model='repeatPassward' 
+    v-model='repeatPassword' 
     class="form-control"
     id="exampleInputPassword2" 
     placeholder="Password" />
@@ -48,7 +48,9 @@ never share your email with anyone else.</small>
 
 
 <script>
-import firebase from '@/firebase';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import app from "@/firebase";
+
 
 export default {
     name: "signup",
@@ -62,17 +64,15 @@ export default {
     
     methods: {
         signup(){
-            //if se password ne slaze, baci alert
+            
+            const auth=getAuth();
 
-         firebase.auth().createUserWithEmailAndPassword(this.username, this.password)
-         .then(function() {
-                    console.log('uspjesna registracija')
-                })
-          .catch(function(error){
-              	    console.error('greska', error)
-                      //dodaj alert korisniku koja greska je dosla 
-          }) ;     
-         console.log('nastavak');
+            createUserWithEmailAndPassword(auth, this.username, this.password)
+            .then(() => console.log("Uspješna registracija"))
+            .catch((error) =>
+                alert("lozinka prekratka - mora biti barem 6 znakova"))
+                      //dodaj alert korisniku koja greska je dosla ) ;     
+            console.log('nastavak');
         },
     },
 };
