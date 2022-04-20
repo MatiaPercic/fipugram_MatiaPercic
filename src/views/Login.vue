@@ -8,18 +8,27 @@
  <form>
  <div class="form-group">
  <label for="exampleInputEmail1">Email address</label>
- <input type="email" class="form-control"
-id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter
+ <input 
+    type="email" 
+    v-model="username"
+    class="form-control"
+    id="exampleInputEmail1" 
+    aria-describedby="emailHelp" 
+    placeholder="Enter
 email" />
  <small id="emailHelp" class="form-text text-muted" >We'll
 never share your email with anyone else.</small>
  </div>
  <div class="form-group">
  <label for="exampleInputPassword1">Password</label>
- <input type="password" class="form-control"
-id="exampleInputPassword1" placeholder="Password" />
+ <input 
+    type="password" 
+    v-model="password"
+    class="form-control"
+    id="exampleInputPassword1" 
+    placeholder="Password" />
  </div>
- <button type="submit" class="btn btn-primary">Submit</button>
+ <button type="button" @click="login()" class="btn btn-primary">Submit</button>
  </form>
  </div>
  <div class="col-sm"></div>
@@ -27,3 +36,36 @@ id="exampleInputPassword1" placeholder="Password" />
  </div>
  </div>
 </template>
+
+<script>
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import app from "@/firebase";
+
+export default{
+    name: "login",
+    data(){
+        return{
+            username: "",
+            password: ""
+        }
+    },
+    methods: {
+        login() {
+            console.log("login..." + this.username)
+
+            
+            const auth=getAuth();
+
+            signInWithEmailAndPassword(auth,this.username, this.password)
+            .then((result) => {console.log("uspiješna prijava", result),
+            
+                this.$router.replace({name: 'home'})
+            })
+            .catch((e) =>
+                console.error("greška" , e)
+            )
+        }
+    }
+
+}
+</script>

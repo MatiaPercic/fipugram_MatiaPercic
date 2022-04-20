@@ -71,7 +71,7 @@ export default {
             .then(() => console.log("Uspješna registracija"))
             .catch((error) =>
                 alert("lozinka prekratka - mora biti barem 6 znakova"))
-                      //dodaj alert korisniku koja greska je dosla ) ;     
+                      ;     
             console.log('nastavak');
         },
     },
