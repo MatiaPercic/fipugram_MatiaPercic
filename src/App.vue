@@ -11,7 +11,7 @@
           Fipugram
         </a>
       
-      <router-link to="/">Home</router-link> |
+      
       <router-link to="/login">Prijava</router-link> |
       <router-link to="/signup">Registracija</router-link>
       <a href="#" @click="logout()" class="px-2">Logout</a>
@@ -42,6 +42,7 @@
 import store from "@/store"
 import { getAuth, onAuthStateChanged, signInAnonymously, signOut} from "firebase/auth";
 import app from "@/firebase";
+import router from "@/router"
 
 const auth=getAuth();
 
@@ -55,6 +56,9 @@ onAuthStateChanged(auth, user=> {
       //user not signed in
     console.log("*** no user")
      store.currentUser="";
+
+    if(router.name != "login")
+        router.push({name: "login"})
 })
 
 export default {
