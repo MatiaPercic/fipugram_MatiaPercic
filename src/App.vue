@@ -10,12 +10,12 @@
           height="50">
           Fipugram
         </a>
-
+      
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Prijava</router-link> |
       <router-link to="/signup">Registracija</router-link>
-
-
+      <a href="#" @click="logout()" class="px-2">Logout</a>
+      
       <form class="form-inline my-2 my-lg-0">
       <input 
           v-model="store.searchTerm" 
@@ -40,16 +40,42 @@
 <script>
 
 import store from "@/store"
+import { getAuth, onAuthStateChanged, signInAnonymously, signOut} from "firebase/auth";
+import app from "@/firebase";
 
-export default ({
+const auth=getAuth();
+
+onAuthStateChanged(auth, user=> {
+    if(user){
+    //user signed in
+        console.log("***", user.email);
+        store.currentUser=user.email;
+    }
+    else
+      //user not signed in
+    console.log("*** no user")
+     store.currentUser="";
+})
+
+export default {
     name: 'app',
     data() {
       return {
         store: store
       }
-    } 
+    },
+  
+  methods: {
 
-})
+    logout(){
+      const auth=getAuth()
+      signOut(auth)
+      .then(() => {
+          this.$router.push({name: "login"})
+      })
+    }
+  }
+}
 </script>
 
 
