@@ -4,6 +4,33 @@
   <div class="col-2"></div>
   <div class="col-7">
     
+    <form @submit.prevent="postNewImage" class="form-inline mb-5">
+       <div class="form-group">
+          <label for="imageUrl">Image URL</label>
+            <input
+              v-model="newImageUrl"
+              type="text"
+              class="form-control ml-2"
+              placeholder="Enter the image URL"
+              id="imageUrl"
+            />
+        </div>
+
+      <div class="form-group">
+        <label for="imageDescription">Description</label>
+          <input
+            v-model="newImageDescription"
+            type="text"
+            class="form-control ml-2"
+            placeholder="Enter the image description"
+            id="imageDescription"
+            />
+        </div>
+
+    <button type="submit" class="btn btn-primary ml-2">Post
+        image</button>
+    </form>
+
     <instagram-card v-for="card in filteredCards" :key="card.url" :info="card"/>
 
   </div>
@@ -22,7 +49,16 @@
 // @ is an alias to /src
 import InstagramCard from '@/components/InstagramCard.vue'
 import store from '@/store'
-
+import {db, storage} from '@/firebase'
+import {
+  collection,
+  query,
+  orderBy,
+  limit,
+  addDoc,
+  getDocs,
+} from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 let cards= []
 //... API/firebase/neki drugi server-> sve kartice --> cards
@@ -41,8 +77,38 @@ export default {
         //ključ: vrijednost
 
         cards,
-        store
+        store,
+        newImageDesc: "",
+        newImageUrl: ""
       }
+  },
+
+  methods: {
+   async postNewImage(){
+      try{
+
+      let imageName =
+          "posts/" + store.currentUser + "/" + Date.now() + ".png";
+
+        const storageRef = ref(storage, imageName);
+        await uploadBytes(storageRef, this.imageReference);
+        const url = await getDownloadURL(storageRef);
+       
+       const imageDescription = this.newImageDesc;
+
+       const docRef = addDoc(collection(db, "posts"), {
+          url: url,
+          desc: imageDescription,
+          user: store.currentUser,
+          posted_at: Date.now(),
+       }) 
+      }
+       catch(e)  {
+            console.error(e)
+       }
+      
+      }
+
   },
 
   computed: {

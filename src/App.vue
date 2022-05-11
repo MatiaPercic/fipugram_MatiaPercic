@@ -13,7 +13,7 @@
       
       
       <router-link to="/login">Prijava</router-link> |
-      <router-link to="/signup">Registracija</router-link>
+      <router-link to="/signup">Registracija</router-link> |
       <a href="#" @click="logout()" class="px-2">Logout</a>
       
       <form class="form-inline my-2 my-lg-0">
