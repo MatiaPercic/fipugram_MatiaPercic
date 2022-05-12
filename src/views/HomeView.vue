@@ -47,9 +47,9 @@
 
 <script>
 // @ is an alias to /src
-import InstagramCard from '@/components/InstagramCard.vue'
-import store from '@/store'
-import {db, storage} from '@/firebase'
+import InstagramCard from "@/components/InstagramCard.vue";
+import store from "@/store";
+import { db, storage } from "@/firebase";
 import {
   collection,
   query,
@@ -59,6 +59,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { catchClause } from "@babel/types";
 
 let cards= []
 //... API/firebase/neki drugi server-> sve kartice --> cards
@@ -79,35 +80,72 @@ export default {
         cards,
         store,
         newImageDesc: "",
-        newImageUrl: ""
-      }
+        newImageUrl: "",
+        loading: false,
+      };
+  },
+
+ mounted() {
+    this.getPosts();
   },
 
   methods: {
+
+    handleImages(files) {
+      this.imageReference = files[0];
+    },
+
+    async getPosts() {
+      this.cards = [];
+      const q = query(
+        collection(db, "posts"),
+        orderBy("posted_at", "desc"),
+        limit(10)
+      );
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        // console.log(doc.id, " => ", doc.data());
+        const data = doc.data();
+
+        this.cards.push({
+          id: doc.id,
+          time: data.posted_at,
+          description: data.desc,
+          url: data.url,
+          user: data.email,
+        });
+      });
+    },
+
    async postNewImage(){
-      try{
+     try{
+        this.loading = true;
 
-      let imageName =
-          "posts/" + store.currentUser + "/" + Date.now() + ".png";
-
-        const storageRef = ref(storage, imageName);
-        await uploadBytes(storageRef, this.imageReference);
-        const url = await getDownloadURL(storageRef);
-       
-       const imageDescription = this.newImageDesc;
+        const imageDescription = this.newImageDescription;
+        const url=this.newImageUrl;
 
        const docRef = addDoc(collection(db, "posts"), {
           url: url,
           desc: imageDescription,
-          user: store.currentUser,
+          email: store.currentUser,
           posted_at: Date.now(),
-       }) 
-      }
-       catch(e)  {
-            console.error(e)
-       }
-      
-      }
+        });
+
+
+       console.log("spremljeno ", docRef, ", korisnik: ", store.currentUser);
+
+        this.newImageDescription = "";
+        this.imageReference = null;
+        this.getPosts();
+        this.loading = false;
+
+     } catch(e) {
+        console.log("error!!! : " , e);
+     }
+          
+    },
 
   },
 

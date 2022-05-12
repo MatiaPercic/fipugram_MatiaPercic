@@ -50,6 +50,7 @@ never share your email with anyone else.</small>
 <script>
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import app from "@/firebase";
+import { Firestore } from '@firebase/firestore';
 
 
 export default {
@@ -64,14 +65,16 @@ export default {
     
     methods: {
         signup(){
+           const auth=getAuth();
             
-            const auth=getAuth();
-
             createUserWithEmailAndPassword(auth, this.username, this.password)
-            .then(() => console.log("Uspješna registracija"))
+            .then(() => console.log("Uspješna registracija: " , this.username))
             .catch((error) =>
                 alert("lozinka prekratka - mora biti barem 6 znakova"))
-                      ;     
+                      ;  
+
+         
+           
             console.log('nastavak');
         },
     },
